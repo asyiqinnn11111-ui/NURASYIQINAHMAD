@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Sales CRM - ASYIQIN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4B5;
+            --dark: #0a0a0a;
+            --dark-card: #1a1a1a;
+            --border: rgba(212, 175, 55, 0.2);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #888;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* STATS CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ADD CLIENT FORM */
+        .add-client-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            border: none;
+            border-radius: 8px;
+            color: black;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* CLIENT LIST */
+        .client-list-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: #888;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-tab.active {
+            background: var(--gold);
+            color: black;
+            border-color: var(--gold);
+        }
+
+        .filter-tab:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .client-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .client-item:hover {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .client-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .client-name {
+            font-weight: 600;
+            color: var(--gold-light);
+            font-size: 1.1rem;
+        }
+
+        .client-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-new { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
+        .status-contacted { background: rgba(234, 179, 8, 0.2); color: #FCD34D; }
+        .status-negotiating { background: rgba(251, 146, 60, 0.2); color: #FB923C; }
+        .status-closed { background: rgba(34, 197, 94, 0.2); color: #4ADE80; }
+
+        .client-info {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .client-value {
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .client-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--gold);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-small:hover {
+            background: var(--gold);
+            color: black;
+        }
+
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+
+        .btn-delete:hover {
+            background: #EF4444;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Property Sales CRM</h1>
+            <p>CLIENT PIPELINE MANAGEMENT SYSTEM</p>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Clients</div>
+                <div class="stat-value" id="totalClients">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-value" id="totalRevenue">RM 0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Deals</div>
+                <div class="stat-value" id="activeDeals">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Closed Deals</div>
+                <div class="stat-value" id="closedDeals">0</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Client List -->
+            <div class="client-list-card">
+                <h2 class="card-title">Client Pipeline</h2>
+                
+                <div class="filter-tabs">
+                    <div class="filter-tab active" data-filter="all">All</div>
+                    <div class="filter-tab" data-filter="new">New Lead</div>
+                    <div class="filter-tab" data-filter="contacted">Contacted</div>
+                    <div class="filter-tab" data-filter="negotiating">Negotiating</div>
+                    <div class="filter-tab" data-filter="closed">Closed</div>
+                </div>
+
+                <div id="clientList">
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <p>No clients yet. Add your first client to get started!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Client Form -->
+            <div class="add-client-card">
+                <h2 class="card-title">Add New Client</h2>
+                <form id="addClientForm">
+                    <div class="form-group">
+                        <label for="clientName">Client Name</label>
+                        <input type="text" id="clientName" required placeholder="e.g., John Tan">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientEmail">Email</label>
+                        <input type="email" id="clientEmail" placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientPhone">Phone</label>
+                        <input type="tel" id="clientPhone" required placeholder="+60 12-345 6789">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="propertyInterest">Property Interest</label>
+                        <input type="text" id="propertyInterest" required placeholder="e.g., SPEKTRA HOUSE Unit 3A">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dealValue">Deal Value (RM)</label>
+                        <input type="number" id="dealValue" required placeholder="350000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientStatus">Status</label>
+                        <select id="clientStatus" required>
+                            <option value="new">New Lead</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="negotiating">Negotiating</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">Add Client</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Built by <a href="https://asyiqinnn11111-ui.github.io/asyiqin-updated-portfolio/">ASYIQIN</a> | Property Sales CRM System</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize data from localStorage
+        let clients = JSON.parse(localStorage.getItem('crmClients')) || [];
+        let currentFilter = 'all';
+
+        // Update stats
+        function updateStats() {
+            const totalClients = clients.length;
+            const totalRevenue = clients.reduce((sum, client) => sum + parseFloat(client.dealValue), 0);
+            const activeDeals = clients.filter(c => c.status !== 'closed').length;
+            const closedDeals = clients.filter(c => c.status === 'closed').length;
+
+            document.getElementById('totalClients').textContent = totalClients;
+            document.getElementById('totalRevenue').textContent = 'RM ' + totalRevenue.toLocaleString();
+            document.getElementById('activeDeals').textContent = activeDeals;
+            document.getElementById('closedDeals').textContent = closedDeals;
+        }
+
+        // Render client list
+        function renderClients() {
+            const clientList = document.getElementById('clientList');
+            const filteredClients = currentFilter === 'all' 
+                ? clients 
+                : clients.filter(c => c.status === currentFilter);
+
+            if (filteredClients.length === 0) {
+                clientList.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <p>No clients in this category.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            clientList.innerHTML = filteredClients.map(client => `
+                <div class="client-item">
+                    <div class="client-header">
+                        <div class="client-name">${client.name}</div>
+                        <div class="client-status status-${client.status}">
+                            ${client.status === 'new' ? 'New Lead' : 
+                              client.status === 'contacted' ? 'Contacted' : 
+                              client.status === 'negotiating' ? 'Negotiating' : 'Closed'}
+                        </div>
+                    </div>
+                    <div class="client-info">
+                        <span>📧 ${client.email || 'N/A'}</span>
+                        <span>📱 ${client.phone}</span>
+                    </div>
+                    <div class="client-info">
+                        <span>🏠 ${client.propertyInterest}</span>
+                    </div>
+                    <div class="client-value">RM ${parseFloat(client.dealValue).toLocaleString()}</div>
+                    <div class="client-actions">
+                        <button class="btn-small" onclick="changeStatus('${client.id}')">Update Status</button>
+                        <button class="btn-small btn-delete" onclick="deleteClient('${client.id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add new client
+        document.getElementById('addClientForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const newClient = {
+                id: Date.now().toString(),
+                name: document.getElementById('clientName').value,
+                email: document.getElementById('clientEmail').value,
+                phone: document.getElementById('clientPhone').value,
+                propertyInterest: document.getElementById('propertyInterest').value,
+                dealValue: document.getElementById('dealValue').value,
+                status: document.getElementById('clientStatus').value,
+                createdAt: new Date().toISOString()
+            };
+
+            clients.unshift(newClient);
+            localStorage.setItem('crmClients', JSON.stringify(clients));
+
+            // Reset form
+            e.target.reset();
+
+            // Update UI
+            updateStats();
+            renderClients();
+
+            // Success feedback
+            alert('✅ Client added successfully!');
+        });
+
+        // Change client status
+        function changeStatus(clientId) {
+            const client = clients.find(c => c.id === clientId);
+            if (!client) return;
+
+            const statusOptions = ['new', 'contacted', 'negotiating', 'closed'];
+            const currentIndex = statusOptions.indexOf(client.status);
+            const nextIndex = (currentIndex + 1) % statusOptions.length;
+
+            client.status = statusOptions[nextIndex];
+            localStorage.setItem('crmClients', JSON.stringify(clients));
+
+            updateStats();
+            renderClients();
+        }
+
+        // Delete client
+        function deleteClient(clientId) {
+            if (!confirm('Are you sure you want to delete this client?')) return;
+
+            clients = clients.filter(c => c.id !== clientId);
+            localStorage.setItem('crmClients', JSON.stringify(clients));
+
+            updateStats();
+            renderClients();
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentFilter = tab.dataset.filter;
+                renderClients();
+            });
+        });
+
+        // Initial render
+        updateStats();
+        renderClients();
+    </script>
+</body>
+</html>
